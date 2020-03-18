@@ -1,5 +1,5 @@
 FROM hadoopclientnode:0.1-ra
-MAINTAINER Mukesh Kumar  <OracleMukesh@rediffmail.com>
+MAINTAINER Rahim Ahmedov  <rahim.ahmedov@gmail.com>
 
 WORKDIR /root
 
@@ -18,6 +18,9 @@ RUN mkdir -p /opt/hive/ \
     && tar xvfz apache-hive-3.1.2-bin.tar.gz \
     && rm -f apache-hive-3.1.2-bin.tar.gz
 
+RUN dnf -y install python3
+RUN alternatives --set python /usr/bin/python3
+
 ENV SPARK_HOME=/opt/spark/spark-2.4.5-bin-without-hadoop
 ENV YARN_CONF_DIR=$HADOOP_CONF_DIR
 ENV HIVE_HOME=/opt/hive/apache-hive-3.1.2-bin
@@ -29,3 +32,4 @@ RUN rm $HIVE_HOME/lib/guava-19.0.jar \
 
 COPY hive-site.xml $HIVE_HOME/conf
 ENV HIVE_CONF_DIR=$HIVE_HOME/conf
+
